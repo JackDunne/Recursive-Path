@@ -1,7 +1,7 @@
 //Your code below
 function buildPath(p,n){
   let path = [];
-  for(let x = 0;x<n.length;x++){
+  for(let x = 0;x<n;x++){
     let r = Math.random()*10;
     Math.floor(r);
     if(r<=p){
@@ -11,12 +11,8 @@ function buildPath(p,n){
       return path[x] = true;
     }
   }
-  if(path[n] == true){
-    return path;
-  }
-  else if(path[n] == false){
-    path[n] == true;
-  }
+  path[n-1] = true;
+  return path;
 }
 
 function stroll(path, index){
@@ -28,7 +24,7 @@ function stroll(path, index){
       return 0;
     }
     else{
-      return fuction stroll(path + 1);
+      return stroll(path,index + 1);
     }
 
   }
@@ -36,8 +32,14 @@ function stroll(path, index){
 
 function rsj(path,index){
   for(let x = 0;x<path.length;x++){
-    if(index == path[x]){
+    if(path[index]==true){
       return 1;
+    }
+    else if(path[index]==false){
+      return 0;
+    }
+    else{
+      return rsj(path, index+1) + rsj(path, index+2) + rsj(path,index+5);
     }
   }
 }
@@ -48,7 +50,7 @@ let testpath2 = buildPath(0.50,15);
 console.log(testpath1);
 console.log(testpath2);
 console.log("---------------------");
-console.log(stroll([true,false,true]],0));
-console.log(stroll([true,true,true]],0));
+console.log(stroll([true,false,true],0));
+console.log(stroll([true,true,true],0));
 console.log(rsj(testpath1,0));
 console.log(rsj(testpath2,0));
